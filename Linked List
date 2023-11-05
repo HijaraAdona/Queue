@@ -1,7 +1,11 @@
-public class LinkedList {
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class QueueProgram {
     public static void main(String[] args) {
+        Queue<Integer> queue = new LinkedList<>();
         Scanner scanner = new Scanner(System.in);
-        Queue queue = new Queue();
 
         while (true) {
             System.out.println("\nQueue Operations:");
@@ -17,18 +21,79 @@ public class LinkedList {
 
             switch (choice) {
                 case 1:
-                    System.out.print("Enter the item to enqueue: ");
-                    int item = scanner.nextInt();
-                    queue.enqueue(item);
+                    enqueueItem(queue, scanner);
                     break;
                 case 2:
-                    queue.dequeue();
+                    dequeueItem(queue);
                     break;
                 case 3:
-                    queue.getFront();
+                    getFrontItem(queue);
                     break;
                 case 4:
-                    queue.getRear();
+                    getRearItem(queue);
                     break;
                 case 5:
-                    queue.printQueue
+                    printQueue(queue);
+                    break;
+                case 6:
+                    scanner.close();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+    }
+
+    public static void enqueueItem(Queue<Integer> queue, Scanner scanner) {
+        System.out.print("Enter the item to enqueue: ");
+        int item = scanner.nextInt();
+        queue.offer(item);
+        System.out.println("Enqueued: " + item);
+    }
+
+    public static void dequeueItem(Queue<Integer> queue) {
+        if (!queue.isEmpty()) {
+            int dequeuedItem = queue.poll();
+            System.out.println("Dequeued: " + dequeuedItem);
+        } else {
+            System.out.println("Queue is empty. Cannot dequeue.");
+        }
+    }
+
+    public static void getFrontItem(Queue<Integer> queue) {
+        if (!queue.isEmpty()) {
+            int frontItem = queue.peek();
+            System.out.println("Front element: " + frontItem);
+        } else {
+            System.out.println("Queue is empty.");
+        }
+    }
+
+    public static void getRearItem(Queue<Integer> queue) {
+        if (!queue.isEmpty()) {
+            int rearItem = getLastElement(queue);
+            System.out.println("Rear element: " + rearItem);
+        } else {
+            System.out.println("Queue is empty.");
+        }
+    }
+
+    public static void printQueue(Queue<Integer> queue) {
+        if (!queue.isEmpty()) {
+            System.out.println("Queue: " + queue.toString());
+        } else {
+            System.println("Queue is empty.");
+        }
+    }
+
+    // Helper method to get the last element in a Java Queue
+    public static int getLastElement(Queue<Integer> queue) {
+        int last = 0;
+        for (int item : queue) {
+            last = item;
+        }
+        return last;
+    }
+}
